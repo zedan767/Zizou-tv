@@ -1,0 +1,183 @@
+<html lang="ar" dir="rtl"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Zizou TV ⚽</title>
+<style>
+:root{--bg:#090909;--panel:#141414;--panel2:#1c1c1c;--orange:#ff7900;--orange2:#ff9d2e;--text:#fff;--muted:#aaa;--line:#2b2b2b;--danger:#e53935;--green:#20a85a}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:radial-gradient(circle at 85% 0%,rgba(255,121,0,.13),transparent 28%),linear-gradient(180deg,#111,#080808);color:var(--text);font-family:Tahoma,Arial,sans-serif;min-height:100vh}a{color:inherit;text-decoration:none}.container{width:min(1000px,94%);margin:auto}
+header{padding:20px 0 12px}.topbar{display:flex;align-items:center;justify-content:space-between;gap:18px}.logo{min-width:190px;padding:14px 24px;border-radius:17px;background:linear-gradient(135deg,#ff7900,#d94e00);box-shadow:0 10px 30px rgba(255,121,0,.24);text-align:center}.logo strong{display:block;font-size:29px;line-height:1}.logo small{display:block;margin-top:7px;color:#fff8ef}nav{display:flex;gap:25px;font-weight:bold}nav a:hover{color:var(--orange2)}.socials{display:flex;gap:8px}.social{width:40px;height:40px;border:1px solid #333;border-radius:50%;display:grid;place-items:center;background:#151515;color:#ddd;font-weight:bold;cursor:pointer}
+.notice{margin:14px 0 18px;padding:9px 15px;border-radius:8px;text-align:center;color:#ffb66d;background:#2a1b0d;border:1px solid #573516;font-size:14px}
+.controls{display:flex;justify-content:space-between;align-items:center;margin:15px 0 25px;gap:10px}.section-title{background:var(--orange);padding:8px 17px;border-radius:9px;font-weight:bold}.days{display:flex;gap:7px}.day{border:0;color:white;background:#202020;padding:9px 18px;border-radius:8px;font-weight:bold;cursor:pointer}.day.active,.day:hover{background:var(--orange)}
+.matches{display:grid;gap:12px}.match{position:relative;display:grid;grid-template-columns:1fr 180px 1fr;align-items:center;min-height:145px;background:linear-gradient(135deg,#171717,#111);border:1px solid #292929;border-right:4px solid var(--orange);border-radius:10px;padding:18px 26px;box-shadow:0 8px 24px rgba(0,0,0,.28);transition:.2s;cursor:pointer}.match:hover{transform:translateY(-2px);border-color:#4a301b}.team{text-align:center}.badge{width:54px;height:54px;margin:auto;border-radius:50%;display:grid;place-items:center;background:#242424;border:2px solid #444;color:var(--orange2);font-size:14px;font-weight:900}.team-name{font-weight:bold;margin-top:10px}.score{text-align:center}.score-main{font-size:22px;font-weight:900;direction:ltr}.status{display:inline-block;margin-top:8px;padding:5px 15px;border-radius:7px;background:#333;font-size:12px;font-weight:bold}.live{background:#7d1d16}.watch{display:block;margin:9px auto 0;width:max-content;padding:7px 16px;border-radius:7px;background:var(--orange);font-size:12px;font-weight:bold}
+.empty{text-align:center;padding:45px 15px;color:#999;background:#111;border:1px dashed #333;border-radius:10px}
+footer{text-align:center;color:#777;padding:35px 0 25px;font-size:13px}footer b{color:var(--orange)}
+.hidden{display:none!important}
+
+/* viewer */
+.viewer-card{background:#111;border:1px solid #292929;border-right:4px solid var(--orange);border-radius:12px;padding:18px;box-shadow:0 10px 30px #000}.viewer-title{text-align:center;font-size:22px;font-weight:bold;margin:5px 0 15px}.player{background:#000;min-height:420px;border-radius:10px;overflow:hidden;display:flex;align-items:center;justify-content:center;border:1px solid #252525}.player iframe{width:100%;height:520px;border:0;display:block}.no-stream{color:#888;text-align:center;padding:80px 20px}.back{display:inline-block;background:#222;padding:9px 16px;border-radius:8px;margin-bottom:15px}.back:hover{background:var(--orange)}
+
+/* admin */
+.admin-wrap{padding-bottom:50px}.admin-login,.admin-panel{background:#111;border:1px solid #2b2b2b;border-right:4px solid var(--orange);border-radius:12px;padding:22px;box-shadow:0 12px 35px #000}.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.field{display:flex;flex-direction:column;gap:6px}.field.full{grid-column:1/-1}label{font-size:13px;color:#ddd}input,select,textarea{width:100%;background:#191919;border:1px solid #333;color:#fff;border-radius:8px;padding:11px;font:inherit;outline:none}input:focus,select:focus,textarea:focus{border-color:var(--orange)}textarea{min-height:130px;resize:vertical}.btn{border:0;border-radius:8px;padding:10px 16px;color:#fff;background:#292929;font-weight:bold;cursor:pointer}.btn.orange{background:var(--orange)}.btn.green{background:var(--green)}.btn.red{background:var(--danger)}.btn:hover{filter:brightness(1.12)}.admin-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:15px}.admin-match{display:grid;grid-template-columns:1fr auto;gap:10px;align-items:center;background:#181818;border:1px solid #2d2d2d;border-radius:9px;padding:13px;margin-top:10px}.admin-match small{color:#999}.admin-tools{display:flex;gap:7px;flex-wrap:wrap}.admin-note{color:#999;font-size:12px;margin-top:10px;line-height:1.7}.admin-head{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:15px}.pill{padding:5px 9px;border-radius:20px;background:#292929;font-size:11px}.pill.live{background:#7d1d16}.pill.ended{background:#333}.pill.upcoming{background:#174b2b}
+@media(max-width:760px){.topbar{flex-wrap:wrap;justify-content:center}.logo{order:-1;width:100%}nav{gap:14px;font-size:13px}.socials{width:100%;justify-content:center}.controls{align-items:flex-start;flex-direction:column}.match{grid-template-columns:1fr 105px 1fr;padding:15px 8px;min-height:130px}.team-name{font-size:13px}.score-main{font-size:19px}.badge{width:48px;height:48px}.form-grid{grid-template-columns:1fr}.field.full{grid-column:auto}.player{min-height:260px}.player iframe{height:300px}}
+</style>
+</head>
+<body>
+
+<header>
+<div class="container">
+<div class="topbar">
+
+<nav><a href="#home" onclick="showHome()">الرئيسية</a><a href="#matches" onclick="showHome()">المباريات</a><a href="#admin" onclick="showAdmin()">الإدارة</a></nav>
+<a class="logo" href="#home" onclick="showHome()"><strong>Zizou TV</strong><small>zizou-tv</small></a>
+</div>
+<div class="notice">مرحباً بك في <b>Zizou TV</b> ⚽ — تابع مباريات كرة القدم ومعلومات كل مباراة.</div>
+</div>
+</header>
+
+<main class="container">
+
+<section id="homePage" class="">
+<div class="controls"><div class="section-title">جدول المباريات</div><div class="days">
+<button class="day active" data-day="today">LIVE</button>
+</div></div>
+<section class="matches" id="matchList"><div class="empty">لا توجد مباريات مباشرة.</div></section>
+</section>
+
+<section id="viewerPage" class="hidden">
+<a class="back" href="#home" onclick="showHome()">← العودة للمباريات</a>
+<div class="viewer-card"><div class="viewer-title" id="viewerTitle"></div><div class="player" id="player"></div></div>
+</section>
+
+<section id="adminPage" class="admin-wrap hidden">
+<div id="loginBox" class="admin-login hidden">
+<div class="section-title">لوحة تحكم Zizou TV</div>
+<p style="color:#aaa">ادخل كلمة مرور الإدارة لفتح لوحة التحكم.</p>
+<input id="adminPassword" type="password" placeholder="كلمة المرور">
+<div class="admin-actions"><button class="btn orange" onclick="loginAdmin()">دخول</button></div>
+<p class="admin-note">ملاحظة: هذه نسخة HTML ثابتة، لذلك كلمة المرور والبيانات يتم التعامل معها داخل المتصفح. للإدارة الحقيقية على الإنترنت استخدم Backend وقاعدة بيانات مع مصادقة.</p>
+</div>
+
+<div id="panelBox" class="admin-panel">
+<div class="admin-head"><div class="section-title">إدارة المباريات</div><button class="btn" onclick="logoutAdmin()">خروج</button></div>
+
+<div class="form-grid">
+<div class="field"><label>الفريق الأول</label><input id="homeTeam" placeholder="مثال: ريال مدريد"></div>
+<div class="field"><label>الفريق الثاني</label><input id="awayTeam" placeholder="مثال: برشلونة"></div>
+<div class="field"><label>اختصار الفريق الأول</label><input id="homeBadge" placeholder="RMA"></div>
+<div class="field"><label>اختصار الفريق الثاني</label><input id="awayBadge" placeholder="BAR"></div>
+<div class="field"><label>نتيجة الفريق الأول</label><input id="homeScore" placeholder="0"></div>
+<div class="field"><label>نتيجة الفريق الثاني</label><input id="awayScore" placeholder="0"></div>
+<div class="field"><label>اليوم</label><select id="matchDay"><option value="yesterday">الأمس</option><option value="today" selected="">اليوم</option><option value="tomorrow">الغد</option></select></div>
+<div class="field"><label>الحالة</label><select id="matchStatus"><option value="upcoming">قادمة</option><option value="live">مباشر</option><option value="ended">انتهت</option></select></div>
+<div class="field full"><label>Embed Code للاعب البث</label><textarea id="embedCode" placeholder="&lt;iframe src=&quot;...&quot; allowfullscreen&gt;&lt;/iframe&gt;"></textarea></div>
+</div>
+<div class="admin-actions">
+<button class="btn orange" onclick="addMatch()">+ إضافة مباراة</button>
+<button class="btn" onclick="clearForm()">مسح</button>
+</div>
+<p class="admin-note">لإنهاء مباراة اختر «انتهت». لبدء مباراة اختر «مباشر». عند الضغط على أي مباراة في الموقع سيفتح مشغلها في صفحة بنفس تصميم Zizou TV.</p>
+
+<div style="margin-top:25px"><div class="section-title">المباريات الحالية</div><div id="adminMatches"><div class="admin-match"><div><b>paris saint German × RCL</b><br><small>today • انتهت • Embed: موجود</small></div>
+  <div class="admin-tools">
+  <button class="btn green" onclick="setStatus(1786914128076,'live')">بدء</button>
+  <button class="btn" onclick="setStatus(1786914128076,'ended')">إنهاء</button>
+  <button class="btn orange" onclick="editEmbed(1786914128076)">Embed</button>
+  <button class="btn red" onclick="deleteMatch(1786914128076)">حذف</button></div></div></div></div>
+</div>
+</section>
+
+</main>
+<footer><b>Zizou TV</b> — واجهة رياضية تجريبية لمتابعة مباريات كرة القدم.</footer>
+
+<script>
+const DEFAULT_MATCHES=[
+{id:1,day:"today",home:"باريس سان جيرمان",away:"لانس",hs:"1",as:"0",status:"live",hb:"PSG",ab:"RCL",embed:""},
+{id:2,day:"today",home:"نابولي",away:"إنتر ميامي",hs:"4",as:"1",status:"ended",hb:"NAP",ab:"MIA",embed:""},
+{id:3,day:"today",home:"أرسنال",away:"مانشستر سيتي",hs:"3",as:"0",status:"ended",hb:"ARS",ab:"MCI",embed:""},
+{id:4,day:"today",home:"برشلونة",away:"أتلتيكو مدريد",hs:"-",as:"-",status:"upcoming",hb:"BAR",ab:"ATM",embed:""},
+{id:5,day:"tomorrow",home:"تشيلسي",away:"مانشستر يونايتد",hs:"-",as:"-",status:"upcoming",hb:"CHE",ab:"MUN",embed:""},
+{id:6,day:"tomorrow",home:"بايرن ميونخ",away:"بوروسيا دورتموند",hs:"-",as:"-",status:"upcoming",hb:"BAY",ab:"BVB",embed:""}
+];
+let matches=JSON.parse(localStorage.getItem("zizou_matches")||"null")||DEFAULT_MATCHES;
+let currentDay="today";
+const ADMIN_PASSWORD="CHANGE_ME_2026";
+
+function save(){localStorage.setItem("zizou_matches",JSON.stringify(matches));}
+function statusText(s){return s==="live"?"مباشر":s==="ended"?"انتهت":"قادمة";}
+function render(){
+ const list=document.getElementById("matchList"); list.innerHTML="";
+ const filtered=matches.filter(m=>m.day===currentDay);
+ if(!filtered.length){list.innerHTML='<div class="empty">لا توجد مباريات في هذا اليوم.</div>';return;}
+ filtered.forEach(m=>{
+  const card=document.createElement("article");card.className="match";card.onclick=()=>openViewer(m.id);
+  card.innerHTML=`<div class="team"><div class="badge">${esc(m.hb)}</div><div class="team-name">${esc(m.home)}</div></div>
+  <div class="score"><div class="score-main">${esc(m.hs)} - ${esc(m.as)}</div><span class="status ${m.status==="live"?"live":""}">${statusText(m.status)}</span>
+  ${m.embed?'<span class="watch">مشاهدة المباراة</span>':''}</div>
+  <div class="team"><div class="badge">${esc(m.ab)}</div><div class="team-name">${esc(m.away)}</div></div>`;
+  list.appendChild(card);
+ });
+}
+function esc(x){return String(x??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[c]));}
+
+function openViewer(id){
+ const m=matches.find(x=>x.id===id); if(!m)return;
+ location.hash="watch-"+id; document.getElementById("homePage").classList.add("hidden");document.getElementById("adminPage").classList.add("hidden");document.getElementById("viewerPage").classList.remove("hidden");
+ document.getElementById("viewerTitle").textContent=m.home+"  "+m.hs+" - "+m.as+"  "+m.away;
+ const player=document.getElementById("player");
+ player.innerHTML="";
+ if(m.embed && m.embed.trim()){
+   const box=document.createElement("div");box.style.width="100%";box.style.height="100%";box.style.minHeight="420px";
+   box.innerHTML=m.embed;
+   const iframe=box.querySelector("iframe");
+   if(iframe){iframe.style.width="100%";iframe.style.height="520px";iframe.style.border="0";iframe.setAttribute("allowfullscreen","");player.appendChild(box);}
+   else player.innerHTML='<div class="no-stream">كود الـ Embed لا يحتوي على iframe صالح.</div>';
+ }else player.innerHTML='<div class="no-stream">لا يوجد بث مضاف لهذه المباراة حالياً.</div>';
+}
+function showHome(){location.hash="home";document.getElementById("homePage").classList.remove("hidden");document.getElementById("viewerPage").classList.add("hidden");document.getElementById("adminPage").classList.add("hidden");}
+function showAdmin(){location.hash="admin";document.getElementById("homePage").classList.add("hidden");document.getElementById("viewerPage").classList.add("hidden");document.getElementById("adminPage").classList.remove("hidden");}
+function loginAdmin(){
+ if(document.getElementById("adminPassword").value===ADMIN_PASSWORD){document.getElementById("loginBox").classList.add("hidden");document.getElementById("panelBox").classList.remove("hidden");renderAdmin();}
+ else alert("كلمة المرور غير صحيحة.");
+}
+function logoutAdmin(){document.getElementById("panelBox").classList.add("hidden");document.getElementById("loginBox").classList.remove("hidden");document.getElementById("adminPassword").value="";}
+function clearForm(){["homeTeam","awayTeam","homeBadge","awayBadge","homeScore","awayScore","embedCode"].forEach(id=>document.getElementById(id).value="");document.getElementById("matchDay").value="today";document.getElementById("matchStatus").value="upcoming";}
+function addMatch(){
+ const home=document.getElementById("homeTeam").value.trim(),away=document.getElementById("awayTeam").value.trim();
+ if(!home||!away){alert("اكتب اسمي الفريقين أولاً.");return;}
+ matches.push({id:Date.now(),home,away,day:document.getElementById("matchDay").value,hs:document.getElementById("homeScore").value||"-",as:document.getElementById("awayScore").value||"-",status:document.getElementById("matchStatus").value,hb:document.getElementById("homeBadge").value.trim()||"HOME",ab:document.getElementById("awayBadge").value.trim()||"AWAY",embed:document.getElementById("embedCode").value.trim()});
+ save();clearForm();render();renderAdmin();alert("تمت إضافة المباراة.");
+}
+function renderAdmin(){
+ const box=document.getElementById("adminMatches");box.innerHTML="";
+ [...matches].reverse().forEach(m=>{
+  const row=document.createElement("div");row.className="admin-match";
+  row.innerHTML=`<div><b>${esc(m.home)} × ${esc(m.away)}</b><br><small>${esc(m.day)} • ${statusText(m.status)} • Embed: ${m.embed?"موجود":"لا يوجد"}</small></div>
+  <div class="admin-tools">
+  <button class="btn green" onclick="setStatus(${m.id},'live')">بدء</button>
+  <button class="btn" onclick="setStatus(${m.id},'ended')">إنهاء</button>
+  <button class="btn orange" onclick="editEmbed(${m.id})">Embed</button>
+  <button class="btn red" onclick="deleteMatch(${m.id})">حذف</button></div>`;
+  box.appendChild(row);
+ });
+}
+function setStatus(id,status){const m=matches.find(x=>x.id===id);if(!m)return;m.status=status;save();render();renderAdmin();}
+function editEmbed(id){
+ const m=matches.find(x=>x.id===id);if(!m)return;
+ const code=prompt("الصق Embed Code للمباراة:",m.embed||"");if(code===null)return;m.embed=code.trim();save();render();renderAdmin();
+}
+function deleteMatch(id){if(!confirm("هل تريد حذف المباراة؟"))return;matches=matches.filter(m=>m.id!==id);save();render();renderAdmin();}
+
+document.querySelectorAll(".day").forEach(b=>b.onclick=()=>{document.querySelectorAll(".day").forEach(x=>x.classList.remove("active"));b.classList.add("active");currentDay=b.dataset.day;render();});
+document.addEventListener("keydown",e=>{if(e.key==="Enter"&&document.activeElement.id==="adminPassword")loginAdmin();});
+
+function route(){
+ const h=location.hash;
+ if(h.startsWith("#watch-"))openViewer(Number(h.slice(7)));
+ else if(h==="#admin")showAdmin(); else showHome();
+}
+window.addEventListener("hashchange",route);
+render();route();
+</script>
+
+
+</body></html>
