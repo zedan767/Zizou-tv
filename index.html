@@ -70,7 +70,7 @@ const statusText=s=>s==="live"?"مباشر":s==="ended"?"انتهت":"قادمة
 function render(){
  const list=document.getElementById("matchList");list.innerHTML="";
  const arr=matches.filter(m=>m.day===currentDay);
- if(!arr.length){list.innerHTML='<div class="empty">لا توجد مباريات في هذا اليوم.</div>';return}
+ if(!arr.length){list.innerHTML='<div class="empty">لا توجد مباريات مباشرة.</div>';return}
  arr.forEach(m=>{
   const c=document.createElement("article");c.className="match";c.onclick=()=>openViewer(m.id);
   c.innerHTML=`<div class="team"><div class="badge">${esc(m.hb||"HOME")}</div><div class="team-name">${esc(m.home)}</div></div><div class="score"><div class="score-main">${esc(m.hs||"-")} - ${esc(m.as||"-")}</div><span class="status ${m.status==="live"?"live":""}">${statusText(m.status)}</span>${m.embed?'<span class="watch">مشاهدة المباراة</span>':''}</div><div class="team"><div class="badge">${esc(m.ab||"AWAY")}</div><div class="team-name">${esc(m.away)}</div></div>`;
