@@ -21,18 +21,18 @@ footer{text-align:center;color:#777;padding:35px 0 25px;font-size:13px}footer b{
 <div class="notice">مرحباً بك في <b>Zizou TV</b> ⚽ — تحديثات المباريات تظهر تلقائياً.</div></div></header>
 
 <main class="container">
-<section id="homePage"><div class="controls"><div class="section-title">جدول المباريات</div><div class="days"><button class="day active" data-day="LIVE">LIVE</button></div></div><section class="matches" id="matchList"><div class="empty">لا توجد مباريات مباشرة</div></section></section>
+<section id="homePage" class=""><div class="controls"><div class="section-title">جدول المباريات</div><div class="days"><button class="day" data-day="today">اليوم</button></div></div><section class="matches" id="matchList"><div class="empty">لا توجد مباريات في هذا اليوم.</div></section></section>
 
-<section id="viewerPage" class="hidden"><a class="back" href="#home" onclick="showHome()">← العودة للمباريات</a><div class="viewer"><div class="viewer-title" id="viewerTitle"></div><div class="player" id="player"></div></div></section>
+<section id="viewerPage" class="hidden"><a class="back" href="#home" onclick="showHome()">← العودة للمباريات</a><div class="viewer"><div class="viewer-title" id="viewerTitle">212  13 - 12  4543</div><div class="player" id="player"><div class="no-stream">لا يوجد بث مضاف لهذه المباراة حالياً.</div></div></div></section>
 
 <section id="adminPage" class="hidden">
-<div id="loginBox" class="admin login"><div class="section-title">لوحة تحكم Zizou TV 🔒</div><p style="color:#aaa">الدخول يتم عبر Firebase Authentication.</p>
+<div id="loginBox" class="admin login hidden"><div class="section-title">لوحة تحكم Zizou TV 🔒</div><p style="color:#aaa">الدخول يتم عبر Firebase Authentication.</p>
 <div class="field"><label>البريد الإلكتروني</label><input id="adminEmail" type="email" autocomplete="username"></div>
 <div class="field"><label>كلمة المرور</label><input id="adminPassword" type="password" autocomplete="current-password"></div>
-<div class="actions"><button class="btn orange" onclick="loginAdmin()">دخول</button></div><div id="loginMessage"></div>
+<div class="actions"><button class="btn orange" onclick="loginAdmin()">دخول</button></div><div id="loginMessage" class="success">تم تسجيل الدخول.</div>
 <p class="note">لا توجد كلمة مرور للإدارة داخل كود الموقع. أنشئ حساب Admin في Firebase Authentication.</p></div>
 
-<div id="panelBox" class="admin hidden"><div class="admin-head"><div class="section-title">إدارة المباريات</div><button class="btn" onclick="logoutAdmin()">خروج</button></div>
+<div id="panelBox" class="admin"><div class="admin-head"><div class="section-title">إدارة المباريات</div><button class="btn" onclick="logoutAdmin()">خروج</button></div>
 <div class="form-grid">
 <div class="field"><label>الفريق الأول</label><input id="homeTeam" placeholder="ريال مدريد"></div><div class="field"><label>الفريق الثاني</label><input id="awayTeam" placeholder="برشلونة"></div>
 <div class="field"><label>اختصار الفريق الأول</label><input id="homeBadge" placeholder="RMA"></div><div class="field"><label>اختصار الفريق الثاني</label><input id="awayBadge" placeholder="BAR"></div>
@@ -44,7 +44,7 @@ footer{text-align:center;color:#777;padding:35px 0 25px;font-size:13px}footer b{
 <p class="note">أي تغيير محفوظ في Realtime Database سيصل تلقائياً لكل الأجهزة المتصلة.</p>
 <div style="margin-top:25px"><div class="section-title">المباريات الحالية</div><div id="adminMatches"></div></div></div>
 </section>
-</main><footer><b>Zizou TV</b> — واجهة رياضية تجريبية — CONTACT-zedanamr95@gmail.com</footer>
+</main><footer><b>Zizou TV</b> — واجهة رياضية تجريبية.</footer>
 
 <script type="module">
 import {initializeApp} from "https://www.gstatic.com/firebasejs/12.16.0/firebase-app.js";
@@ -70,7 +70,7 @@ const statusText=s=>s==="live"?"مباشر":s==="ended"?"انتهت":"قادمة
 function render(){
  const list=document.getElementById("matchList");list.innerHTML="";
  const arr=matches.filter(m=>m.day===currentDay);
- if(!arr.length){list.innerHTML='<div class="empty">لا توجد مباريات مباشرة.</div>';return}
+ if(!arr.length){list.innerHTML='<div class="empty">لا توجد مباريات في هذا اليوم.</div>';return}
  arr.forEach(m=>{
   const c=document.createElement("article");c.className="match";c.onclick=()=>openViewer(m.id);
   c.innerHTML=`<div class="team"><div class="badge">${esc(m.hb||"HOME")}</div><div class="team-name">${esc(m.home)}</div></div><div class="score"><div class="score-main">${esc(m.hs||"-")} - ${esc(m.as||"-")}</div><span class="status ${m.status==="live"?"live":""}">${statusText(m.status)}</span>${m.embed?'<span class="watch">مشاهدة المباراة</span>':''}</div><div class="team"><div class="badge">${esc(m.ab||"AWAY")}</div><div class="team-name">${esc(m.away)}</div></div>`;
